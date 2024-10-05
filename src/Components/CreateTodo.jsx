@@ -7,14 +7,9 @@ function CreateTodo({ todo, setTodo, ShowAlert }) {
     tag: "",
     date: "",
     dueDate: "",
-    isCompleted: false
+    isCompleted: false,
+    priority: "Medium", // default priority
   });
-
-  // const [dueDate, setDueDate] = useState("");
-
-  // const handleDueDateChange = (e) => {
-  //   setDueDate(e.target.value);
-  // };
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -37,16 +32,20 @@ function CreateTodo({ todo, setTodo, ShowAlert }) {
         date: new Date().toLocaleDateString(),
         id: new Date().getTime().toString(),
         dueDate: text.dueDate,
-        isCompleted: false
+        isCompleted: false,
+        priority: text.priority, // save the priority
       },
     ]);
     setText({
       title: "",
       description: "",
       tag: "",
+      dueDate: "",
+      priority: "Medium", // reset priority
     });
     ShowAlert("Saved");
   };
+
   return (
     <form
       className="modal fade"
@@ -125,6 +124,22 @@ function CreateTodo({ todo, setTodo, ShowAlert }) {
                 value={text.dueDate}
                 onChange={onChange}
               />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="priority" className="form-label">
+                Priority
+              </label>
+              <select
+                className="form-select"
+                id="priority"
+                name="priority"
+                value={text.priority}
+                onChange={onChange}
+              >
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
             </div>
           </div>
           <div className="modal-footer">
